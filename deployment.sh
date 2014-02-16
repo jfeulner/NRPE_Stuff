@@ -19,6 +19,6 @@ $YUM_CMD install nagios-nrpe-server nagios-plugins-basic nagios-plugins nagios-p
 
 ##Pulling Config File for deployment
 cd $NRPE_CONF_DIR
-$WGET_CMD https://raw.github.com/jfeulner/Mason-nrpe/master/config.cfg mason.cfg
+$WGET_CMD https://raw2.github.com/jfeulner/NRPE_Stuff/master/config.cfg
 
 $SERVICE_CMD nrpe restart
