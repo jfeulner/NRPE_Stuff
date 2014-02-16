@@ -9,7 +9,7 @@ NRPE_CONF_DIR=/etc/nrpe.d/
 
 YUM_CMD=/usr/bin/apt-get
 WGET_CMD=/usr/bin/wget
-SERVICE_CMD=/sbin/service
+SERVICE_CMD=/usr/bin/service
 
 mkdir -p $TEMP_DIR
 cd $TEMP_DIR
@@ -19,6 +19,6 @@ $YUM_CMD install nagios-nrpe-server nagios-plugins-basic nagios-plugins nagios-p
 
 ##Pulling Config File for deployment
 cd $NRPE_CONF_DIR
-$WGET_CMD https://raw2.github.com/jfeulner/NRPE_Stuff/master/config.cfg
+$WGET_CMD https://raw2.github.com/jfeulner/NRPE_Stuff/master/config.cfg /etc/nagios/nrpe.cfg
 
 $SERVICE_CMD nrpe restart
