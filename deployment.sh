@@ -17,7 +17,7 @@ do
             echo "Updating the NRPE Config File to the latest Version"
 			cd $NRPE_CONF_DIR
 			rm config.cfg
-			$WGET_CMD https://raw2.github.com/jfeulner/NRPE_Stuff/master/config.cfg nrpe.cfg
+			$WGET_CMD https://raw2.github.com/jfeulner/NRPE_Stuff/master/config.cfg
 			rm nrpe.cfg
 			$WGET_CMD 
 			$SERVICE_CMD nagios-nrpe-server reload
