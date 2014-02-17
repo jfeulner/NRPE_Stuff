@@ -1,24 +1,49 @@
 #!/bin/bash
-
 # Edited for Bronycon usage by John Feulner
 
 SERVER_IP="173.255.233.120"
-
 TEMP_DIR=/tmp/nagios
-NRPE_CONF_DIR=/etc/nrpe.d/
-
+NRPE_CONF_DIR=/etc/nagios
 YUM_CMD=/usr/bin/apt-get
 WGET_CMD=/usr/bin/wget
 SERVICE_CMD=/usr/bin/service
 
-mkdir -p $TEMP_DIR
-cd $TEMP_DIR
+PS3='Please enter your choice: '
+options=("Update NRPE Config" "Deploy NRPE" "Quit")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "Update NRPE Config")
+            echo "Updating the NRPE Config File to the latest Version"
+			cd $NRPE_CONF_DIR
+			rm nrpe.cfg
+			$WGET_CMD https://raw2.github.com/jfeulner/NRPE_Stuff/master/config.cfg nrpe.cfg
+			$SERVICE_CMD nrpe restart
+			echo "Update has been completed. Service has restarted"
+            ;;
+        "Deploy NRPE")
+            echo "Deploying NRPE to BronyCon"
+			mkdir -p $TEMP_DIR
+			cd $TEMP_DIR
 
-## INSTALLING REQUIRED FILES FOR NAGIOS
-$YUM_CMD install nagios-nrpe-server nagios-plugins-basic nagios-plugins nagios-plugins-extra -y
+			## INSTALLING REQUIRED FILES FOR NAGIOS
+			$YUM_CMD install nagios-nrpe-server nagios-plugins-basic nagios-plugins nagios-plugins-extra -y
 
-##Pulling Config File for deployment
-cd $NRPE_CONF_DIR
-$WGET_CMD https://raw2.github.com/jfeulner/NRPE_Stuff/master/config.cfg /etc/nagios/nrpe.cfg
+			##Pulling Config File for deployment
+			cd $NRPE_CONF_DIR
+			rm nrpe.cfg
+			$WGET_CMD https://raw2.github.com/jfeulner/NRPE_Stuff/master/config.cfg nrpe.cfg
 
-$SERVICE_CMD nrpe restart
+			$SERVICE_CMD nrpe restart
+            ;;
+        "Quit")
+            break
+            ;;
+        *) echo invalid option;;
+    esac
+done
+
+
+
+
+
