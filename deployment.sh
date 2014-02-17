@@ -19,12 +19,13 @@ do
 			rm config.cfg
 			$WGET_CMD https://raw2.github.com/jfeulner/NRPE_Stuff/master/config.cfg
 			rm nrpe.cfg
-			$WGET_CMD 
+			$WGET_CMD https://raw2.github.com/jfeulner/NRPE_Stuff/master/nrpe.cfg
 			$SERVICE_CMD nagios-nrpe-server reload
 			echo "Update has been completed. Service has restarted"
             ;;
         "Deploy NRPE")
-            echo "Deploying NRPE to BronyCon"
+            echo "Deploying NRPE to BronyCon"3
+			
 			mkdir -p $TEMP_DIR
 			cd $TEMP_DIR
 
@@ -36,7 +37,7 @@ do
 			rm config.cfg
 			$WGET_CMD https://raw2.github.com/jfeulner/NRPE_Stuff/master/config.cfg
 			rm nrpe.cfg
-			
+			$WGET_CMD https://raw2.github.com/jfeulner/NRPE_Stuff/master/nrpe.cfg
 			$SERVICE_CMD nagios-nrpe-server restart
             ;;
         "Quit")
